@@ -1,18 +1,14 @@
-Terraform module which creates Mybase and its account on Alibaba Cloud.
-
 terraform-alicloud-mybase
 =====================================================================
 
-English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-mybase/blob/master/README-CN.md)
+本 Module 用于在阿里云创建一个[云数据库专享集群(Mybase)](https://help.aliyun.com/product/156215.html).
 
-Terraform module which creates Mybase and its account on Alibaba Cloud.
+本 Module 支持创建以下资源:
 
-These types of resources are supported:
+* [云数据库专享集群(Cddc_Dedicated_Host)](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cddc_dedicated_host)
+* [云数据库专享集群账户(Cddc_Dedicated_Host_Account)](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cddc_dedicated_host_account)
 
-* [Cddc_Dedicated_Host](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cddc_dedicated_host)
-* [Cddc_Dedicated_Host_Account](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cddc_dedicated_host_account)
-
-## Requirements
+## 版本要求
 
 | Name | Version |
 |------|---------|
@@ -25,7 +21,7 @@ These types of resources are supported:
 |------|---------|
 | <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | > = 1.131.0 |
 
-## Usage
+## 用法
 
 ```hcl
 module "example" {
@@ -41,22 +37,22 @@ module "example" {
 }
 ```
 
-Submit Issues
--------------
-If you have any problems when using this module, please opening
-a [provider issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new) and let us know.
+提交问题
+------
+如果在使用该 Terraform Module
+的过程中有任何问题，可以直接创建一个 [Provider Issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new)，我们将根据问题描述提供解决方案。
 
-**Note:** There does not recommend to open an issue on this repo.
+**注意:** 不建议在该 Module 仓库中直接提交 Issue。
 
-Authors
+作者
 -------
 Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
-License
+许可
 ----
 Apache 2 Licensed. See LICENSE for full details.
 
-Reference
+参考
 ---------
 
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
