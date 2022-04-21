@@ -1,6 +1,6 @@
 # Complete
 
-Configuration in this directory creates Mybase.
+Configuration in this directory creates Mybase and its account.
 
 ## Usage
 
@@ -19,5 +19,5 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.131.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > = 0.13.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | > = 1.131.0 |

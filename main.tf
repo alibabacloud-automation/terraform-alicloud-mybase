@@ -9,10 +9,11 @@ resource "alicloud_cddc_dedicated_host" "cddc_dedicated_host" {
   image_category          = var.image_category
   tags                    = var.tags
 }
+
 resource "alicloud_cddc_dedicated_host_account" "cddc_dedicated_host_account" {
   count             = var.create ? 1 : 0
+  dedicated_host_id = alicloud_cddc_dedicated_host.cddc_dedicated_host.0.dedicated_host_id
   account_name      = var.account_name
   account_password  = var.account_password
-  dedicated_host_id = alicloud_cddc_dedicated_host.cddc_dedicated_host.0.dedicated_host_id
   account_type      = var.account_type
 }

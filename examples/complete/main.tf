@@ -1,55 +1,44 @@
-variable "name" {
-  default = "tftestacc"
+data "alicloud_cddc_zones" "default" {
 }
 
 data "alicloud_cddc_dedicated_host_groups" "default" {
-  name_regex = var.name
-  engine     = "mssql"
+  engine = "MySQL"
 }
 
 data "alicloud_vpcs" "default" {
   name_regex = "default-NODELETING"
 }
 
-resource "alicloud_cddc_dedicated_host_group" "default" {
-  count                     = length(data.alicloud_cddc_dedicated_host_groups.default.ids) > 0 ? 0 : 1
-  engine                    = "SQLServer"
-  vpc_id                    = data.alicloud_vpcs.default.ids.0
-  allocation_policy         = "Evenly"
-  host_replace_policy       = "Manual"
-  dedicated_host_group_desc = var.name
-  open_permission           = true
-}
-
 data "alicloud_vswitches" "default" {
-  vpc_id  = length(data.alicloud_cddc_dedicated_host_groups.default.ids) > 0 ? data.alicloud_cddc_dedicated_host_groups.default.groups[0].vpc_id : data.alicloud_vpcs.default.ids.0
-  zone_id = data.alicloud_cddc_zones.default.ids.0
-}
-
-data "alicloud_cddc_zones" "default" {}
-
-resource "alicloud_vswitch" "default" {
-  count      = length(data.alicloud_vswitches.default.ids) > 0 ? 0 : 1
-  vpc_id     = data.alicloud_vpcs.default.ids.0
-  cidr_block = data.alicloud_vpcs.default.vpcs[0].cidr_block
-  zone_id    = data.alicloud_cddc_zones.default.ids.0
+  vpc_id  = data.alicloud_vpcs.default.ids.0
+  zone_id = data.alicloud_cddc_zones.default.zones.0.id
 }
 
 data "alicloud_cddc_host_ecs_level_infos" "default" {
   db_type        = "mssql"
-  zone_id        = data.alicloud_cddc_zones.default.ids.0
+  zone_id        = data.alicloud_cddc_zones.default.zones.0.id
   storage_type   = "cloud_essd"
-  image_category = "WindowsWithMssqlStdLicense"
+  image_category = var.image_category
 }
 
 module "example" {
   source = "../.."
+
+  #alicloud_cddc_dedicated_host
   create = true
-  cddc_dedicated_host_name = "dedicatedHostName"
-  account_name = var.name
-  account_password = "yourpassword"
-  dedicated_host_group_id = length(data.alicloud_cddc_dedicated_host_groups.default.ids) > 0 ? data.alicloud_cddc_dedicated_host_groups.default.ids.0 : alicloud_cddc_dedicated_host_group.default[0].id
-  host_class = data.alicloud_cddc_host_ecs_level_infos.default.infos.0.res_class_code
-  zone_id = data.alicloud_cddc_zones.default.ids.0
-  vswitch_id = length(data.alicloud_vswitches.default.ids) > 0 ? data.alicloud_vswitches.default.ids.0 : alicloud_vswitch.default[0].id
+
+  cddc_dedicated_host_name = var.cddc_dedicated_host_name
+  dedicated_host_group_id  = data.alicloud_cddc_dedicated_host_groups.default.groups.0.id
+  host_class               = data.alicloud_cddc_host_ecs_level_infos.default.infos.0.res_class_code
+  zone_id                  = data.alicloud_cddc_zones.default.zones.0.id
+  vswitch_id               = data.alicloud_vswitches.default.vswitches.0.id
+  payment_type             = "Subscription"
+  image_category           = var.image_category
+  tags                     = var.tags
+
+  #alicloud_cddc_dedicated_host_account
+  account_name     = "tf_testacc_name"
+  account_password = var.account_password
+  account_type     = "Normal"
+
 }
