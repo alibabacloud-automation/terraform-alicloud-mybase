@@ -1,3 +1,9 @@
+# 下线公告
+
+感谢您对阿里云 Terraform Module 的关注。 由于[MyBase托管版实例已停止售卖](https://help.aliyun.com/document_detail/2508508.html)，即日起，本 Module 将停止维护并会在将来正式下线。更多丰富的 Module 可在 [阿里云 Terraform Module](https://registry.terraform.io/browse/modules?provider=alibaba) 中搜索获取。
+
+再次感谢您的理解和合作。
+
 terraform-alicloud-mybase
 =====================================================================
 
